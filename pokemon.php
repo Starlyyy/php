@@ -1,6 +1,7 @@
 <?php
 
-    $nome_pokemon = readline("Me dê o nome de um pokemon e eu lhe dou as informações sobre ele: ");
+    // $nome_pokemon = readline("Me dê o nome de um pokemon e eu lhe dou as informações sobre ele: ");
+    $nome_pokemon = strtolower($nome_pokemon); //deixa o nome do pokemon em minusculo para que o codigo funcione
 
     $dados_em_texto = file_get_contents("https://pokeapi.co/api/v2/pokemon/{$nome_pokemon}");
 
