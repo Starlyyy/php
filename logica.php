@@ -2,10 +2,10 @@
 
     //include 'logica.php';
 
-    $pokemons_api = file_get_contents('https://pokeapi.co/api/v2/pokemon');
+    $pokemons_api = file_get_contents('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0');
     $pokemons = json_decode($pokemons_api, true);
 
-    for($i = 0; $i < 20; $i++){
+    for($i = 0; $i < 10; $i++){
 
         $pokemon = $pokemons['results'][$i];
 
@@ -14,15 +14,23 @@
 
     }
 
+    if (isset( $_GET['campo_busca'])) {
 
-    // print '<pre>';
-    // print_r($pokemons['results']);
-    // print '</pre>';
-    // die;
+        $encontrados = [];
 
-    // $dados_em_texto = file_get_contents("https://pokeapi.co/api/v2/pokemon/{$nome_pokemon}");
+        foreach ($pokemons['results'] as $poke) {
+            
+            if (str_contains($poke['name'], $_GET['campo_busca'])) {
+                
+                $encontrados[]= $poke;
 
-    // $pokemon = json_decode($dados_em_texto, true);
+            }
+
+        }
+
+        $pokemons = $encontrados;
+
+    }
 
 
 ?>
@@ -44,6 +52,24 @@
                 
             }
 
+            #Pesquisa input[type="text"]{
+                
+                width: 300px;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                border-radius: 15px;
+                font-size: 15px;
+
+            }
+
+            #Pesquisa input[type="submit"]{
+                
+                padding-top: 10px;
+                padding-bottom: 10px;
+                border-radius: 15px;
+
+            }
+
             .Pokémon {
                 
                 width: 15%;
@@ -58,6 +84,7 @@
             .Pokémon img {
 
                 max-width: 70%;
+                height: 150px;
 
             }
 
@@ -69,8 +96,8 @@
         
         <div id="Pesquisa">
 
-            <form>
-                <input type="text" placeholder="Digite o nome de um Pokémon" >
+            <form method="get">
+                <input type="text" name="campo_busca" placeholder="Digite o nome de um Pokémon" >
                 <input type="submit" value="Buscar" >
             </form>
 
@@ -78,7 +105,7 @@
 
         <div id="Pokémons">
 
-            <?php for($i = 0; $i < 20; $i++): ?>
+            <?php for($i = 0; $i < count($pokemons); $i++): ?>
 
             <div class="Pokémon">
 
