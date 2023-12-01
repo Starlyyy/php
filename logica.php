@@ -47,7 +47,7 @@
             .Pokémon {
                 
                 width: 15%;
-                border: solid 4px #F6BFC4;
+                border: solid 4px #000;
                 padding: 10px; /* Margem interna */
                 margin: 10px 10px 10px 10px;
                 float: left;
@@ -57,7 +57,7 @@
 
             .Pokémon img {
 
-                max-width: 100%;
+                max-width: 70%;
 
             }
 
